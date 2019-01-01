@@ -1,6 +1,10 @@
 import React from 'react';
-
+import PropTypes from 'prop-types'
 class Comment extends React.Component {
+    static propTypes = {
+        onDeleteSubmit: PropTypes.func,
+        comment: PropTypes.object
+    }
     constructor() {
         super()
         this.state = {
@@ -28,15 +32,30 @@ class Comment extends React.Component {
                     : `${Math.round(Math.max(duration, 1))} 秒前`
         })
     }
+    _getProcessedContent(content) {
+        return content
+            .replace(/&/g, '&')
+            .replace(/</g, '<')
+            .replace(/>/g, '>')
+            .replace(/'/g, "'")
+            .replace(/"/g, '"')
+            .replace(/`([\S\s]+?)`/g, '<code>$1</code>')
+    }
+    handleDelete() {
+        this.props.onDeleteSubmit(this.props.index)
+    }
     render() {
         return (
             <div className="comment">
                 <div className="comment-user">
                     <span>{this.props.comment.username}</span>
                 </div>：
-                <p>{this.props.comment.content}</p>
+                <p dangerouslySetInnerHTML={{__html: this._getProcessedContent(this.props.comment.content)}}></p>
                 <span className="comment-createdtime">
                     {this.state.timeStirng}
+                </span>
+                <span className="comment-delete" onClick={this.handleDelete.bind(this)}>
+                    删除
                 </span>
             </div>
         )

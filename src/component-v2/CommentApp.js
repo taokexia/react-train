@@ -10,8 +10,8 @@ class CommentApp extends React.Component {
         }
     }
     componentDidMount() {
-        let str = this._loadComments();
-        let comments = JSON.parse(str);
+        let str = this._loadComments()
+        let comments = JSON.parse(str)
         // console.log(comments)
         if (comments === null ) 
             return 
@@ -37,11 +37,20 @@ class CommentApp extends React.Component {
             comments: this.state.comments
         })
     }
+    handleDeleteSubmit(index) {
+        let str = this._loadComments()
+        let comments = JSON.parse(str)
+        comments.splice(index, 1)
+        this._saveComments(comments)
+        this.setState({
+            comments: comments
+        })
+    }
     render() {
         return (
             <div className="wrapper">
                 <CommentInput onSubmit={this.handleSubmitComment.bind(this)}/>
-                <CommentList comments={this.state.comments}/>
+                <CommentList comments={this.state.comments} onDeleteSubmit={this.handleDeleteSubmit.bind(this)} />
             </div>
         )
     }
