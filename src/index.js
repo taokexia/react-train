@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import ComponentApp from './component-v2/CommentApp';
+import ComponentApp from './component-v3/CommentApp';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render( < ComponentApp /> , document.getElementById('root'));
