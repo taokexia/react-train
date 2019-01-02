@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 class CommentInput extends React.Component {
     static propTypes = {
         username: PropTypes.any,
-        onClick: PropTypes.func,
+        onSubmit: PropTypes.func,
         onUserNameInputBlur: PropTypes.func
     }
     constructor(props) {
